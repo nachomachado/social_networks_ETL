@@ -7,7 +7,7 @@ from tools.main import estract
 from common_args import default_args
 
 with DAG(
-    'google imports',
+    'google_imports',
     default_args=default_args,
     description='DAG para importar datos de google',
     schedule_interval=timedelta(days=1),
