@@ -8,7 +8,7 @@ def estract():
     app = FastAPI()
     pytrend = TrendReq()
     df_google = pytrend.trending_searches()
-    df_google.to_csv('data_source.csv')
+    df_google.to_csv('dump/data_source.csv')
     print('Estract done')
 
 # df = pd.read_csv("test.csv")

@@ -12,8 +12,8 @@ with DAG(
     description='DAG para importar datos de google',
     schedule_interval=timedelta(days=1),
     start_date=days_ago(8),
-    end_date=days_ago(6),
     tags=['aca va el tag'],
+    catchup=False
 ) as dag:
 
     estraction = PythonOperator(
