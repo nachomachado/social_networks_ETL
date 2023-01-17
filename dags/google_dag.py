@@ -3,7 +3,7 @@ from airflow import DAG
 
 from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
-from tools.main import estract
+from tools.main import extract
 from common_args import default_args
 
 with DAG(
@@ -16,10 +16,10 @@ with DAG(
     catchup=False
 ) as dag:
 
-    estraction = PythonOperator(
-        task_id='run_estraction_process',
-        python_callable=estract,
+    extraction = PythonOperator(
+        task_id='run_exstraction_process',
+        python_callable=extract,
         dag=dag,
     )
 
-estraction
+extraction
