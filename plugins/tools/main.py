@@ -4,12 +4,12 @@ from fastapi import FastAPI
 from pytrends.request import TrendReq
 
 
-def estract():
+def extract():
     app = FastAPI()
     pytrend = TrendReq()
     df_google = pytrend.trending_searches()
     df_google.to_csv('dump/data_source.csv')
-    print('Estract done')
+    print('Extract done')
 
 # df = pd.read_csv("test.csv")
 # @app.get("/")
