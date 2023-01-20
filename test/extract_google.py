@@ -1,5 +1,4 @@
-# from pytrends.request import TrendReq
-# import pandas as pd
+
 
 # pytrends = TrendReq(hl='en-US', tz=360)
 
