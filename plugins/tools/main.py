@@ -7,7 +7,7 @@ from pytrends.request import TrendReq
 
 def extract():
     pytrend = TrendReq()
-    df_google = pytrend.trending_searches()
+    df_google = pytrend.trending_searches().rename(columns={0:"results"})
     df_google.to_csv('dump/data_source.csv')
     print('Extract done')
 
@@ -15,7 +15,7 @@ def letter_count(**kwargs):
     today=date.today()
     dict = {}
     print('1')
-    list_API = pd.read_csv(f"dump/{kwargs['file_name']}")[0].tolist()
+    list_API = pd.read_csv(f"dump/{kwargs['file_name']}").loc[:,"results"].tolist()
     print('leido')
     str_API=''.join(list_API).lower()
     str_API=str_API.replace(" ","")
@@ -28,28 +28,3 @@ def letter_count(**kwargs):
     print('df ordenado')
     df_final.to_csv(f"stagging/API_{kwargs['API_name']}/{today}_char_count.csv")
     print('df a stagging')
-
-
-# app = FastAPI()
-
-# df = pd.read_csv("test.csv")
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World!!!"}
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
-
-# @app.get("/df")
-# def read_root():
-#     return {"Sample de 5 registros": df.sample()}
-
-# @app.get("/google/{item_id}")
-# def read_root(item_id: str):
-#     df_google = pytrend.trending_searches(pn = item_id)
-#     return {"Sample de 5 registros": df_google.sample(5)}
-
-# @app.get("/google")
-# def read_root():
-#     return {"Sample de 5 registros": df_google.sample()}
