@@ -2,9 +2,17 @@ from datetime import timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
-from tools.main import extract
-from tools.main import letter_count
+from tools.main import extract_google, letter_count, extract_spotify
 from common_args import default_args
+
+import sqlalchemy
+import pandas as pd 
+from sqlalchemy.orm import sessionmaker
+import requests
+import json
+from datetime import datetime
+import datetime
+import sqlite3
 
 with DAG(
     'google_imports',               #social_networks_imports
@@ -16,17 +24,23 @@ with DAG(
     catchup=False
 ) as dag:
 
-    extraction = PythonOperator(
-        task_id='run_exstraction_process',
-        python_callable=extract,
+    extract_google_task = PythonOperator(
+        task_id='run_extraction_process',
+        python_callable=extract_google,
         dag=dag,
     )
 
-    transformation = PythonOperator(
+    extract_spotify_task = PythonOperator(
+        task_id='run_extraction_process',
+        python_callable=extract_spotify,
+        dag=dag,
+    )
+
+    transform = PythonOperator(
         task_id='run_transformation_process',
         python_callable=letter_count,
         op_kwargs={'file_name':'data_source.csv','API_name':'google'},
         dag=dag,
     )
 
-    extraction >> transformation
+    extract >> transform
