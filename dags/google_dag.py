@@ -25,13 +25,13 @@ with DAG(
 ) as dag:
 
     extract_google_task = PythonOperator(
-        task_id='run_extraction_process',
+        task_id='run_extraction_process_google',
         python_callable=extract_google,
         dag=dag,
     )
 
     extract_spotify_task = PythonOperator(
-        task_id='run_extraction_process',
+        task_id='run_extraction_process_spotify',
         python_callable=extract_spotify,
         dag=dag,
     )
@@ -43,4 +43,4 @@ with DAG(
         dag=dag,
     )
 
-    extract >> transform
+    [extract_google_task, extract_spotify_task] >> transform
